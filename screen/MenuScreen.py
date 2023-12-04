@@ -25,3 +25,4 @@ class MenuScreen(Screen):
         menu_screen = MenuScreen()
         menu_screen.next_screen = next_screen
         return menu_screen
+
