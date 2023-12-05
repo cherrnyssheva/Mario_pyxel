@@ -1,48 +1,46 @@
 import pyxel
 import math
 import time
-from GameObjects.Collision import check_collision
-from GameObjects.Platform import Platform
 
 
 class Player:
    """This class describes a Player"""
-   def __init__(self, x: float, y: float, radius: float, color: int, isGround:bool):
+   def __init__(self, x: float, y: float, radius: float, color: int, platforms):
        self.x = x
        self.y = y
+       self.initial = y
        self.radius = radius
        self.width = 10
        self.height = 10
        self.color = color
        self.current_posY = 60
-       self.is_jumping = False
-       self.jump_count = 0
-       self.gravity = 10
-       self.is_ground = isGround
-       self.counter = 0
-       self.currentPlatform = None
+       self.platforms = platforms
+       self.up = False
+
 
    def update(self, boomerang):
        """This method updates .... """
        self.current_posY = self.y
-       if pyxel.btn(pyxel.KEY_RIGHT) and self.x + self.radius < 160:
+       if pyxel.btn(pyxel.KEY_RIGHT) and self.x + self.radius < 240:
            self.x += 1
        if pyxel.btn(pyxel.KEY_LEFT) and self.x - self.radius > 0:
            self.x -= 1
-
-
        if pyxel.btn(pyxel.KEY_UP) and self.y - self.radius > 0:
-           step = self.jump()
-           self.y -= step
+           if self.jump():
+               self.up = True
 
-       #он должен быть на земле что бы прыгать
-       if pyxel.btn(pyxel.KEY_DOWN) and self.y + self.radius < 120:
-           self.y += 1
+       """if pyxel.btn(pyxel.KEY_DOWN) and self.y + self.radius < 160:
+           self.y += 1"""
 
    def jump(self):
-       if self.is_ground:
-           return 10
-       return 0
+       for platform in self.platforms:
+           if (round(self.y) + self.height + 14 >= platform.y-1 and  round(self.y) + self.height + 14 <= platform.y + 1) and (self.x>= platform.x and self.x +self.width <= platform.x + platform.width):
+               self.initial = self.y - 40
+               return True
 
    def draw(self):
-       pyxel.circ(self.x, self.y, self.radius, self.color)
+       pyxel.blt(self.x, self.y, 0, 0, 0, 16, 24)
+       pyxel.load("../finalProject/assets/sprites-jjsv-ndb.pyxres")
+
+
+

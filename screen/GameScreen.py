@@ -1,15 +1,12 @@
-
 import random
 import time
 import pyxel
-
 
 from Player import Player
 from ScreenBoomerang import ScreenBoomerang
 from screen.Screen import Screen
 from GameObjects.Platform import Platform
 from GameObjects.Collision import check_collision
-from GameObjects.Collision import check_collision_above
 
 
 class GameScreen(Screen):
@@ -18,23 +15,17 @@ class GameScreen(Screen):
        Screen.__init__(self)
        self.player = None
        self.platforms = []
-       self.jump_count = 0
-       self.is_ground = True
        self.__set_up()
 
 
    def __set_up(self):
        """This method sets up all of the objects on a screen"""
-
-
-       # creating a player
-
-       obj = Player(120, 10, 5, 5, self.is_ground)
-       self.player = obj
-       pl = [Platform(0, 111, 9, 160, 4), Platform(0, 85, 5, 60, 6), Platform(100, 85, 5, 60, 6),
-             Platform(0, 63, 5, 30, 6), Platform(130, 63, 5, 30, 6), Platform(50, 58, 5, 60, 6),
-             Platform(0, 30, 5, 65, 6), Platform(100, 30, 5, 65, 6)]
+       pl = [Platform(0, 150, 10, 240, 6),Platform(0 * 240 / 160, 100, 6, 30 * 240 / 160, 6),Platform(130 * 240 / 160, 100, 6, 30 * 240 / 160, 6),Platform(50 * 240 / 160, 97, 7, 60 * 240 / 160, 6),Platform(0 * 240 / 160, 55, 7, 65 * 240 / 160, 6),Platform(100 * 240 / 160, 55, 7, 65 * 240 / 160, 6)
+]
        self.platforms = pl
+       obj = Player(120, 10, 15, 15,self.platforms)
+       self.player = obj
+
    def update(self, boomerang):
        #из-за этой функции наш игрок двигается тк мы обновляем экран
        if self.player is not None:
@@ -45,16 +36,15 @@ class GameScreen(Screen):
            for platform in self.platforms:
                platform.update(boomerang)
                if check_collision(self.player, platform):
-                   self.player.y = platform.y-6
-                   self.is_ground = True
-               else:
-                   self.player.y += 0.4
-                   self.is_ground = False
+                   self.player.y = platform.y-self.player.height - 16
 
+               elif self.player.up:
+                   if self.player.y <= self.player.initial:
+                       self.player.up = False
+                   self.player.y -= 0.5
 
-       """if pyxel.btn(pyxel.KEY_MINUS):
-           boomerang.screen = self.next_screen.get_instance(self.next_screen.next_screen)"""
-
+               elif not check_collision(self.player, platform) and not self.player.up:
+                   self.player.y += 0.5
 
    def draw(self):
        """This method draws a Game Screen"""
@@ -69,4 +59,3 @@ class GameScreen(Screen):
        game_screen = GameScreen()
        game_screen.next_screen = next_screen
        return game_screen
-

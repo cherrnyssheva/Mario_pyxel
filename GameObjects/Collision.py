@@ -1,10 +1,7 @@
-import pyxel
 
 def check_collision(player, platform):
-    return (player.x < platform.x+5 + platform.width) and (player.x-5 + player.width > platform.x) and (
-                player.y < platform.y + platform.height) and (player.y + player.height > platform.y)
+    return(round(player.y) + player.height + 14 >= platform.y-1 and  round(player.y) + player.height + 14 <= platform.y + 3) and (player.x + player.width >= platform.x and player.x <= platform.x + platform.width)
 
 
 def check_collision_above(player, platform):
-    return (player.x < platform.x + 5 + platform.width) and (player.x - 5 + player.width > platform.x) and (
-            player.y < platform.y + platform.height) and (player.y + player.height > platform.y)
+    return(round(player.y) + player.height + 14 >= platform.y-1 and  round(player.y) + player.height + 14 <= platform.y + 1) and (player.x + player.width >= platform.x and player.x <= platform.x + platform.width)

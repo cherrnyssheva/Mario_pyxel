@@ -30,4 +30,3 @@ class Platform:
 
     def draw(self):
         pyxel.rect(self.x, self.y, self.width, self.height, self.color)
-

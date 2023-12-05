@@ -12,17 +12,15 @@ class MenuScreen(Screen):
             print(boomerang.screen)
 
     def draw(self):
-        """This method draws a Menu screen"""
         pyxel.cls(0)
-        pyxel.rectb(36, 25, 80, 40,  pyxel.frame_count % 2)
-        pyxel.rectb(38, 27, 76, 36, pyxel.frame_count % 3)
-        pyxel.rectb(40, 29, 72, 32, pyxel.frame_count % 4)
-        pyxel.text(58, 42, "MARIO BROS", 7)
-        pyxel.text(48, 80, "- PRESS SPACE -", 7)
+        pyxel.rectb(54, 37.5, 120, 60, pyxel.frame_count % 2)
+        pyxel.rectb(57, 40.5, 114, 54, pyxel.frame_count % 3)
+        pyxel.rectb(60, 43.5, 108, 48, pyxel.frame_count % 4)
+        pyxel.text(92, 63, "MARIO BROS", 7)
+        pyxel.text(80, 120, "- PRESS SPACE -", 7)
 
     def get_instance(self, next_screen):
         """This method sets next screen and return the current one (menu screen)"""
         menu_screen = MenuScreen()
         menu_screen.next_screen = next_screen
         return menu_screen
-
