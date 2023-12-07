@@ -1,6 +1,6 @@
 import pyxel
 
-from enemy.enemy_parent import EnemyParent
+from enemy.enemy_parents import EnemyParent
 
 class Turtle(EnemyParent):
     """This class describes an enemy turtle"""
