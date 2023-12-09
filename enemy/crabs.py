@@ -1,12 +1,14 @@
 import pyxel
 
-class Pow:
-    def __init__(self, x, y, height, width):
+
+class Crabs:
+    """This class describes an enemy turtle"""
+    def __init__(self, x: float, y: float, height, width):
         self.x = x
         self.y = y
         self.height = height
         self.width = width
-        self.count = 9
+        self.speed = 2
 
     @property
     def x(self):
@@ -25,8 +27,8 @@ class Pow:
         self.__y = y
 
     def update(self, boomerang):
-        pass
+        self.x += 1
 
     def draw(self):
-        pyxel.blt(115, 120, 0, 136, 176, 16, 16)
+        pyxel.blt(self.x, self.y, 0, 0, 40, 16, 16)
         pyxel.load("../finalProject/assets/sprites-jjsv-ndb.pyxres")

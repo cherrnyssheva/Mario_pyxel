@@ -2,9 +2,9 @@ import pyxel
 
 from enemy.enemy_parents import EnemyParent
 
-class Turtle(EnemyParent):
+class Flies(EnemyParent):
     """This class describes an enemy turtle"""
-    def __init__(self, x, y, height, width):
+    def __init__(self,x, y, height, width):
         self.x = x
         self.y = y
         self.height = height
@@ -14,7 +14,7 @@ class Turtle(EnemyParent):
 
     def update(self, boomerang):
         """This method updates movements of the turtle"""
-        self.x -= self.speed
+        self.x += self.speed
 
         if self.x > 160:
             self.x = 0
@@ -24,5 +24,5 @@ class Turtle(EnemyParent):
             self.y = 110
 
     def draw(self):
-        pyxel.blt(self.x, self.y, 0, 0, 24, 16, 16)
+        pyxel.blt(self.x, self.y, 0, 0, 56, 16, 16)
         pyxel.load("../finalProject/assets/sprites-jjsv-ndb.pyxres")

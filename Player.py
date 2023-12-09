@@ -34,7 +34,8 @@ class Player:
 
    def jump(self):
        for platform in self.platforms:
-           if (round(self.y) + self.height + 14 >= platform.y-1 and  round(self.y) + self.height + 14 <= platform.y + 1) and (self.x>= platform.x and self.x +self.width <= platform.x + platform.width):
+
+           if (round(self.y) + self.height + 15 >= platform.y-1 and  round(self.y) + self.height + 14 <= platform.y + 1) and (self.x>= platform.x and self.x +self.width <= platform.x + platform.width):
                self.initial = self.y - 40
                return True
 

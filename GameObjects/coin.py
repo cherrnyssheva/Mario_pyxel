@@ -1,12 +1,11 @@
 import pyxel
 
-class Pow:
+class Coin:
     def __init__(self, x, y, height, width):
+        self.width = width
+        self.height = height
         self.x = x
         self.y = y
-        self.height = height
-        self.width = width
-        self.count = 9
 
     @property
     def x(self):
@@ -28,5 +27,5 @@ class Pow:
         pass
 
     def draw(self):
-        pyxel.blt(115, 120, 0, 136, 176, 16, 16)
+        pyxel.blt(self.x, self.y, 0, 16, 208, 8, 16)
         pyxel.load("../finalProject/assets/sprites-jjsv-ndb.pyxres")
