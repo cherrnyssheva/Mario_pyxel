@@ -17,5 +17,5 @@ game_screen.next_screen = game_over_screen
 game_over_screen.next_screen = menu_screen
 
 # set up app screen`
-app = App(menu_screen, 240, 170, )
+app = App(menu_screen, 240, 170)
 app.run()

@@ -22,7 +22,6 @@ class GameScreen(Screen):
        """Screen.__init__(self)"""
        self.player = None
        self.pow = None
-       self.pow_count = 3
        self.platforms = []
        self.objects = []
        self.enemies = []
@@ -42,22 +41,18 @@ class GameScreen(Screen):
             self.player = obj
 
        buttom = Pow(115, 105, 15, 15)
-       if buttom not in self.objects:
-            self.add_object(buttom)
+       self.add_object(buttom)
 
+       pipes = Pipes(0, 20, 48, 24)
+       self.add_object(pipes)
 
        turtle = Turtle(240, 25, 16, 16)
        flie = Flies(240, 25, 16, 16)
        crab = Crabs(60, 25, 16, 16)
 
-       if turtle not in self.enemies:
-           self.add_enemy(turtle)
-
-       if flie not in self.enemies:
-           self.add_enemy(flie)
-
-       if crab not in self.enemies:
-           self.add_enemy(crab)
+       self.add_enemy(turtle)
+       self.add_enemy(flie)
+       self.add_enemy(crab)
 
 
    def update(self, boomerang):
@@ -70,7 +65,7 @@ class GameScreen(Screen):
             boomerang = ScreenBoomerang()
             enemy.update(boomerang)
             if (enemy.x >= 223 or enemy.x <= 1) and (enemy.y >= 150.75):
-                self.remove_enemy(enemy)
+                enemy.y = 25
                 """self.__set_up()"""
 
             for platform in self.platforms:
@@ -85,17 +80,15 @@ class GameScreen(Screen):
 
 
        #из-за этой функции игрок ходит по платформам и падает когда их нет
+       if len(self.objects) != 0 and type(self.objects[0]) == type(Pow(115, 105, 15, 15)):
+           if check_collision_above(self.player, self.objects[0]):
+               if self.objects[0].count > 0:
+                   self.objects[0].count -= 1
+               else:
+                   self.remove_object(self.objects[0])
 
        if self.platforms is not None:
            for platform in self.platforms:
-               if len(self.objects) != 0:
-                    if check_collision_above(self.player, self.objects[0]):
-                        if self.objects[0].count > 0:
-                            print(self.objects[0].count)
-                            self.objects[0].count -= 1
-                        else:
-                            self.remove_object(self.objects[0])
-
                if check_collision(self.player, platform):
                    self.player.y = platform.y-self.player.height - 16
 
@@ -113,11 +106,10 @@ class GameScreen(Screen):
        self.player.draw()
        """if self.pow.count != 0:
             self.pow.draw()"""
-       for obj in self.objects:
-           if obj is not None:
-                obj.draw()
        for enemy in self.enemies:
            enemy.draw()
+       for obj in self.objects:
+          obj.draw()
 
    def get_instance(self, next_screen):
        """This method sets next screen and return the current one (game over screen)"""

@@ -27,8 +27,8 @@ class Pipes:
         pass
 
     def draw(self):
-        pyxel.blt(self.x, self.y + 10, 0, 64, 176, 48, 24)
-        pyxel.blt(192, 10, 0, 0, 176, 48, 24)
+        pyxel.blt(self.x, self.y, 0, 64, 176, 48, 24)
+        pyxel.blt(192, 20, 0, 0, 176, 48, 24)
         pyxel.blt(0, 140, 0, 48, 184, 32, 24)
         pyxel.blt(208, 140, 0, 48, 184, -32, 24)
         pyxel.load("../finalProject-main/assets/sprites-jjsv-ndb.pyxres")
