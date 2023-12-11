@@ -14,14 +14,15 @@ class Turtle(EnemyParent):
 
     def update(self, boomerang):
         """This method updates movements of the turtle"""
-        self.x -= self.speed
+        self.x -= self.speed - 1
 
-        if self.x > 160:
-            self.x = 0
-
-        elif self.x > 160 and self.y == 0:
-            self.x = 0
-            self.y = 110
+        if self.x > 223:
+            self.x = 1
+        if self.x < 1:
+            self.x = 223
+        if self.x < 1 and self.y < 20:
+            self.x = 223
+            self.y = 20
 
     def draw(self):
         pyxel.blt(self.x, self.y, 0, 0, 24, 16, 16)

@@ -27,7 +27,11 @@ class Crabs:
         self.__y = y
 
     def update(self, boomerang):
-        self.x += 1
+        self.x += self.speed - 0.75
+        if self.x > 223:
+            self.x = 1
+        if self.x < 1:
+            self.x = 223
 
     def draw(self):
         pyxel.blt(self.x, self.y, 0, 0, 40, 16, 16)

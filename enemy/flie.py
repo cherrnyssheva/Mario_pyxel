@@ -16,13 +16,10 @@ class Flies(EnemyParent):
         """This method updates movements of the turtle"""
         self.x += self.speed
 
-        if self.x > 160:
-            self.x = 0
-
-        elif self.x > 160 and self.y == 0:
-            self.x = 0
-            self.y = 110
-
+        if self.x > 223:
+            self.x = 1
+        if self.x < 1:
+            self.x = 223
     def draw(self):
         pyxel.blt(self.x, self.y, 0, 0, 56, 16, 16)
         pyxel.load("../finalProject/assets/sprites-jjsv-ndb.pyxres")
