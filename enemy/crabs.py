@@ -3,13 +3,14 @@ import pyxel
 
 class Crabs:
     """This class describes an enemy turtle"""
-    def __init__(self, x: float, y: float, height, width):
+    def __init__(self, x: float, y: float, height, width, motion:bool, rotated):
         self.x = x
         self.y = y
         self.height = height
         self.width = width
         self.speed = 2
-
+        self.motion = motion
+        self.rotated = rotated
     @property
     def x(self):
         return self.__x
@@ -34,5 +35,9 @@ class Crabs:
             self.x = 223
 
     def draw(self):
-        pyxel.blt(self.x, self.y, 0, 0, 40, 16, 16)
-        pyxel.load("../finalProject/assets/sprites-jjsv-ndb.pyxres")
+        if not self.rotated:
+            pyxel.blt(self.x, self.y, 0, 0, 40, 16, 16)
+            pyxel.load("../finalProject/assets/sprites-jjsv-ndb.pyxres")
+        else:
+            pyxel.blt(self.x, self.y, 0, 0, 40, 16, -16)
+            pyxel.load("../finalProject/assets/sprites-jjsv-ndb.pyxres")

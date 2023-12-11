@@ -7,6 +7,7 @@ class EnemyParent:
         self.color = color
         self.speed = speed
 
+
     @property
     def x(self):
         return self.__x

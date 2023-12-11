@@ -6,7 +6,7 @@ class Pow:
         self.y = y
         self.height = height
         self.width = width
-        self.count = 2
+        self.count = 3
 
     @property
     def x(self):

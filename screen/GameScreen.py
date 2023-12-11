@@ -25,6 +25,10 @@ class GameScreen(Screen):
        self.platforms = []
        self.objects = []
        self.enemies = []
+       self.motion = True
+       self.rotated = None
+       self.rotated_enemies = []
+       self.current_time = time.time()
        self.__set_up()
        Screen.__init__(self)
 
@@ -40,15 +44,15 @@ class GameScreen(Screen):
             obj = Player(120, 10, 15, 15,self.platforms)
             self.player = obj
 
-       buttom = Pow(115, 105, 15, 15)
-       self.add_object(buttom)
+       button = Pow(115, 105, 15, 15)
+       self.add_object(button)
 
        pipes = Pipes(0, 20, 48, 24)
        self.add_object(pipes)
 
-       turtle = Turtle(240, 25, 16, 16)
-       flie = Flies(240, 25, 16, 16)
-       crab = Crabs(60, 25, 16, 16)
+       turtle = Turtle(240, 25, 16, 16, True, False)
+       flie = Flies(240, 25, 16, 16, True, False)
+       crab = Crabs(60, 25, 16, 16, True, False)
 
        self.add_enemy(turtle)
        self.add_enemy(flie)
@@ -62,30 +66,30 @@ class GameScreen(Screen):
            self.player.update(boomerang)
 
        for enemy in self.enemies:
-            boomerang = ScreenBoomerang()
-            enemy.update(boomerang)
+            if enemy.motion == True:
+                boomerang = ScreenBoomerang()
+                enemy.update(boomerang)
+
             if (enemy.x >= 223 or enemy.x <= 1) and (enemy.y >= 150.75):
                 enemy.y = 25
-                """self.__set_up()"""
 
             for platform in self.platforms:
-                """if platform.y == 45:
-                    print("round(obj.y) + obj.height + 14",round(obj.y) + obj.height)
-                    print("platform.y - 1",platform.y -1)"""
 
                 if check_collision_enemy(enemy, platform):
                     enemy.y = platform.y - enemy.height
                 if not check_collision_enemy(enemy, platform):
                     enemy.y += 0.25
 
-
-       #из-за этой функции игрок ходит по платформам и падает когда их нет
        if len(self.objects) != 0 and type(self.objects[0]) == type(Pow(115, 105, 15, 15)):
            if check_collision_above(self.player, self.objects[0]):
                if self.objects[0].count > 0:
                    self.objects[0].count -= 1
-               else:
-                   self.remove_object(self.objects[0])
+                   for enemy in self.enemies:
+                       self.current_time = time.time()
+                       self.rotated_enemies.append(enemy)
+                   self.rotation_enemies(self.rotated_enemies)
+           if self.objects[0].count == 0:
+                self.remove_object(self.objects[0])
 
        if self.platforms is not None:
            for platform in self.platforms:
@@ -100,6 +104,27 @@ class GameScreen(Screen):
 
                elif not check_collision(self.player, platform) and not self.player.up:
                    self.player.y += 0.5
+
+       for platform in self.platforms:
+            for enemy in self.enemies:
+                if check_collision_above(self.player, platform):
+                    """print(check_collision_above(self.player, platform))
+                    print("enemy.x", enemy.x, enemy)
+                    print("self.player.x", self.player.x)"""
+                    if enemy.x >= self.player.x-9 and enemy.x + enemy.width <= self.player.x + self.player.width +9 and enemy.y < self.player.y:
+                        self.current_time = time.time()
+                        self.rotated_enemies.append(enemy)
+            self.rotation_enemies(self.rotated_enemies)
+
+   def rotation_enemies(self, enemies):
+       for rotated_enemy in enemies:
+           if time.time() - self.current_time <= 3:
+               rotated_enemy.motion = False
+               rotated_enemy.rotated = True
+           else:
+               rotated_enemy.motion = True
+               rotated_enemy.rotated = False
+               enemies.remove(rotated_enemy)
 
    def draw(self):
        """This method draws a Game Screen"""
