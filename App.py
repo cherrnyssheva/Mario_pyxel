@@ -29,6 +29,7 @@ class App:
         pyxel.cls(0)
         for platform in self.platforms:
             platform.draw()
+
         self.curr_screen.draw()
 
     def run(self):

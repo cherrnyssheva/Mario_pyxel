@@ -27,6 +27,5 @@ class Platform:
     def update(self, boomerang):
         pass
 
-
     def draw(self):
         pyxel.rect(self.x, self.y, self.width, self.height, self.color)

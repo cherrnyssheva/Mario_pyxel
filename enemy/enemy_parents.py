@@ -1,12 +1,11 @@
 class EnemyParent:
     """This is a parent class for enemies"""
-    def __init__(self, x: float, y: float, radius: float, color: int, speed: int):
+    def __init__(self, x: float, y: float, radius: float, color: int, speed: float):
         self.x = x
         self.y = y
         self.radius = radius
         self.color = color
         self.speed = speed
-
 
     @property
     def x(self):

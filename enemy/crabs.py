@@ -1,16 +1,19 @@
 import pyxel
-
-
+import time
+from enemy.enemy_parents import EnemyParent
 class Crabs:
     """This class describes an enemy turtle"""
-    def __init__(self, x: float, y: float, height, width, motion:bool, rotated):
+
+    def __init__(self, x, y, height, width):
         self.x = x
         self.y = y
         self.height = height
         self.width = width
-        self.speed = 2
-        self.motion = motion
-        self.rotated = rotated
+        self.motion = True
+        self.rotated = False
+        self.crash = True
+        self.time_crash = time.time()
+        EnemyParent.__init__(self, self.x, self.y, 2, 4, 1.3)
     @property
     def x(self):
         return self.__x
